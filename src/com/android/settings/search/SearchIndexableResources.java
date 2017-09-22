@@ -33,6 +33,9 @@ import com.android.settings.accessibility.AccessibilitySettings;
 import com.android.settings.accessibility.AccessibilityShortcutPreferenceFragment;
 import com.android.settings.accessibility.MagnificationPreferenceFragment;
 import com.android.settings.accounts.UserAndAccountDashboardFragment;
+import com.android.settings.bass.dashboard.ButtonSettings;
+import com.android.settings.bass.dashboard.GestureSettings;
+import com.android.settings.bass.dashboard.TuningSettings;
 import com.android.settings.applications.AdvancedAppSettings;
 import com.android.settings.applications.AppAndNotificationDashboardFragment;
 import com.android.settings.applications.SpecialAccessSettings;
@@ -52,11 +55,6 @@ import com.android.settings.fuelgauge.BatterySaverSettings;
 import com.android.settings.fuelgauge.PowerUsageAdvanced;
 import com.android.settings.fuelgauge.PowerUsageSummary;
 import com.android.settings.gestures.AssistGestureSettings;
-import com.android.settings.gestures.DoubleTapPowerSettings;
-import com.android.settings.gestures.DoubleTapScreenSettings;
-import com.android.settings.gestures.DoubleTwistGestureSettings;
-import com.android.settings.gestures.PickupGestureSettings;
-import com.android.settings.gestures.SwipeToNotificationSettings;
 import com.android.settings.inputmethod.AvailableVirtualKeyboardFragment;
 import com.android.settings.inputmethod.PhysicalKeyboardFragment;
 import com.android.settings.inputmethod.VirtualKeyboardFragment;
@@ -135,12 +133,6 @@ public final class SearchIndexableResources {
                 R.xml.special_access, R.drawable.ic_settings_applications);
         addIndex(UserSettings.class, NO_DATA_RES_ID, R.drawable.ic_settings_multiuser);
         addIndex(AssistGestureSettings.class, NO_DATA_RES_ID, R.drawable.ic_settings_gestures);
-        addIndex(PickupGestureSettings.class, NO_DATA_RES_ID, R.drawable.ic_settings_gestures);
-        addIndex(DoubleTapScreenSettings.class, NO_DATA_RES_ID, R.drawable.ic_settings_gestures);
-        addIndex(DoubleTapPowerSettings.class, NO_DATA_RES_ID, R.drawable.ic_settings_gestures);
-        addIndex(DoubleTwistGestureSettings.class, NO_DATA_RES_ID, R.drawable.ic_settings_gestures);
-        addIndex(SwipeToNotificationSettings.class, NO_DATA_RES_ID,
-                R.drawable.ic_settings_gestures);
         addIndex(LanguageAndInputSettings.class, NO_DATA_RES_ID, R.drawable.ic_settings_language);
         addIndex(LocationSettings.class, R.xml.location_settings, R.drawable.ic_settings_location);
         addIndex(ScanningSettings.class, R.xml.location_scanning, R.drawable.ic_settings_location);
@@ -182,6 +174,9 @@ public final class SearchIndexableResources {
                 R.drawable.ic_settings_accessibility);
         addIndex(ChannelImportanceSettings.class, NO_DATA_RES_ID,
                 R.drawable.ic_settings_notifications);
+        addIndex(SystemDashboardFragment.class, NO_DATA_RES_ID, R.drawable.ic_settings_gestures);
+        addIndex(TuningSettings.class, NO_DATA_RES_ID, R.drawable.ic_tuning);
+        addIndex(ButtonSettings.class, NO_DATA_RES_ID, R.drawable.ic_buttons);
     }
 
     private SearchIndexableResources() {

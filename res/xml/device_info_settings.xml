@@ -17,6 +17,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/about_settings">
 
+        <!-- CypherOS: Version/API -->
+        <Preference android:key="aoscp_build_information"
+                android:title="@string/aoscp_build_information_title"
+                android:summary="@string/aoscp_build_information_summary"
+                android:icon="@drawable/ic_aoscp" />
+
         <!-- System update settings - launches activity -->
         <Preference android:key="additional_system_update_settings"
                     android:title="@string/additional_system_update_settings_list_item_title">

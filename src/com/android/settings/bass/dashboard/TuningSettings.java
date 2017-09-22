@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2017 CypherOS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,71 +14,102 @@
  * limitations under the License.
  */
 
-package com.android.settings.gestures;
+package com.android.settings.bass.dashboard;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.UserHandle;
 import android.provider.SearchIndexableResource;
 
-import com.android.internal.hardware.AmbientDisplayConfiguration;
-import com.android.internal.logging.nano.MetricsProto;
-import com.android.settings.R;
+import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
+import com.android.settings.bass.tuning.ScreenshotModePreferenceController;
 import com.android.settings.core.PreferenceController;
 import com.android.settings.core.lifecycle.Lifecycle;
 import com.android.settings.dashboard.DashboardFragment;
+import com.android.settings.R;
 import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import com.android.settings.widget.FooterPreferenceMixin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DoubleTapScreenSettings extends DashboardFragment {
+public class TuningSettings extends DashboardFragment implements Indexable {
 
-    private static final String TAG = "DoubleTapScreen";
-    private static final String KEY_DOUBLE_TAP_SCREEN = "gesture_double_tap_screen";
+    private static final String LOG_TAG = "TuningSettings";
+
+    private static final String KEY_SCREENSHOT_TYPE = "screenshot_type";
+    
+    private final FooterPreferenceMixin mFooterPreferenceMixin =
+            new FooterPreferenceMixin(this, getLifecycle());
+
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        mFooterPreferenceMixin.createFooterPreference().setTitle(R.string.tuning_settings_description);
+    }
 
     @Override
     public int getMetricsCategory() {
-        return MetricsProto.MetricsEvent.SETTINGS_GESTURE_DOUBLE_TAP_SCREEN;
+        return MetricsEvent.TUNING_SETTINGS;
+    }
+
+    @Override
+    protected int getHelpResource() {
+        return R.string.help_uri_about;
     }
 
     @Override
     protected String getLogTag() {
-        return TAG;
+        return LOG_TAG;
     }
 
     @Override
     protected int getPreferenceScreenResId() {
-        return R.xml.double_tap_screen_settings;
+        return R.xml.tuning_settings;
     }
 
     @Override
     protected List<PreferenceController> getPreferenceControllers(Context context) {
-        return buildPreferenceControllers(context, getLifecycle());
+        return buildPreferenceControllers(context, getActivity(), this /* fragment */,
+                getLifecycle());
     }
 
     private static List<PreferenceController> buildPreferenceControllers(Context context,
-            Lifecycle lifecycle) {
+            Activity activity, Fragment fragment, Lifecycle lifecycle) {
         final List<PreferenceController> controllers = new ArrayList<>();
-        controllers.add(new DoubleTapScreenPreferenceController(context, lifecycle,
-                new AmbientDisplayConfiguration(context), UserHandle.myUserId(),
-                KEY_DOUBLE_TAP_SCREEN));
+        controllers.add(new ScreenshotModePreferenceController(context, KEY_SCREENSHOT_TYPE));
         return controllers;
     }
 
+    /**
+     * For Search.
+     */
     public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
+
                 @Override
                 public List<SearchIndexableResource> getXmlResourcesToIndex(
                         Context context, boolean enabled) {
                     final SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.double_tap_screen_settings;
+                    sir.xmlResId = R.xml.tuning_settings;
                     return Arrays.asList(sir);
                 }
 
                 @Override
                 public List<PreferenceController> getPreferenceControllers(Context context) {
-                    return buildPreferenceControllers(context, null /* lifecycle */);
+                    return buildPreferenceControllers(context, null /*activity */,
+                            null /* fragment */, null /* lifecycle */);
+                }
+
+                @Override
+                public List<String> getNonIndexableKeys(Context context) {
+                    List<String> keys = super.getNonIndexableKeys(context);
+                    return keys;
                 }
             };
 }

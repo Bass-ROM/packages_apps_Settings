@@ -22,6 +22,7 @@ import android.provider.SearchIndexableResource;
 
 import com.android.internal.hardware.AmbientDisplayConfiguration;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
+import com.android.settings.bass.display.DozeAlwaysOnPreferenceController;
 import com.android.settings.core.PreferenceController;
 import com.android.settings.core.lifecycle.Lifecycle;
 import com.android.settings.dashboard.DashboardFragment;
@@ -33,14 +34,12 @@ import com.android.settings.display.FontSizePreferenceController;
 import com.android.settings.display.LiftToWakePreferenceController;
 import com.android.settings.display.NightDisplayPreferenceController;
 import com.android.settings.display.NightModePreferenceController;
+import com.android.settings.display.PocketLockPreferenceController;
 import com.android.settings.display.ScreenSaverPreferenceController;
-import com.android.settings.display.TapToWakePreferenceController;
 import com.android.settings.display.ThemePreferenceController;
 import com.android.settings.display.TimeoutPreferenceController;
 import com.android.settings.display.VrDisplayPreferenceController;
 import com.android.settings.display.WallpaperPreferenceController;
-import com.android.settings.gestures.DoubleTapScreenPreferenceController;
-import com.android.settings.gestures.PickupGesturePreferenceController;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 
@@ -95,18 +94,13 @@ public class DisplaySettings extends DashboardFragment {
         controllers.add(new AutoRotatePreferenceController(context));
         controllers.add(new CameraGesturePreferenceController(context));
         controllers.add(new DozePreferenceController(context));
+        controllers.add(new DozeAlwaysOnPreferenceController(context));
         controllers.add(new FontSizePreferenceController(context));
         controllers.add(new LiftToWakePreferenceController(context));
         controllers.add(new NightDisplayPreferenceController(context));
         controllers.add(new NightModePreferenceController(context));
+        controllers.add(new PocketLockPreferenceController(context));
         controllers.add(new ScreenSaverPreferenceController(context));
-        AmbientDisplayConfiguration ambientDisplayConfig = new AmbientDisplayConfiguration(context);
-        controllers.add(new PickupGesturePreferenceController(
-                context, lifecycle, ambientDisplayConfig, UserHandle.myUserId(), KEY_PICK_UP));
-        controllers.add(new DoubleTapScreenPreferenceController(
-                context, lifecycle, ambientDisplayConfig, UserHandle.myUserId(),
-                KEY_DOUBLE_TAP_SCREEN));
-        controllers.add(new TapToWakePreferenceController(context));
         controllers.add(new TimeoutPreferenceController(context, KEY_SCREEN_TIMEOUT));
         controllers.add(new VrDisplayPreferenceController(context));
         controllers.add(new WallpaperPreferenceController(context));
